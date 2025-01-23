@@ -9,6 +9,7 @@ public class ItemCollectableBase : MonoBehaviour
     public float timeToHide = 2f;
     public GameObject graphicItem;
 
+
     private void OnTriggerEnter(Collider collision) 
     {
         if (collision.transform.CompareTag(compareTag))
