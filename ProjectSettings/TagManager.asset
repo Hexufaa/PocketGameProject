@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Player_tag
   - Enemy
+  - EndLine
   layers:
   - Default
   - TransparentFX

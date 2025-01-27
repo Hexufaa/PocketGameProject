@@ -10,14 +10,20 @@ public class PlayerController : MonoBehaviour
     [Header("lerp")]
     public Transform target;
     public float LerpSpeed = 1f;
+
     [Header("move")]
     public float speed = 1f;
     public string enemyTagCheck = "Enemy";
+    public string endLineTagCheck = "EndLine";
+
+    public GameObject endScreen;
+    public GameObject startScreen;
 
 
-    void Start()
+    public void StartToRun()
     {
         _canRun = true;
+        startScreen.SetActive(false);
     }
 
     // Update is called once per frame
@@ -37,7 +43,21 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.transform.tag == enemyTagCheck)
         {
-            _canRun = false;
+            EndGame();
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.tag == endLineTagCheck) 
+        {
+            EndGame();   
+        }
+    }
+
+    private void EndGame()
+    {
+        _canRun = false;
+        endScreen.SetActive(true);
     }
 }
