@@ -19,7 +19,7 @@ public class ItemCollectableBase : MonoBehaviour
     }
 
 
-    public void Collect()
+    protected virtual void Collect()
     {
         if(graphicItem != null) graphicItem.SetActive(false);
         Invoke("HideObject", timeToHide);

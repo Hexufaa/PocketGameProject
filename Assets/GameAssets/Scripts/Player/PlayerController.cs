@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     private Vector3 _pos;
     private bool _canRun;
+    private float _currentSpeed;
+    //private Vector3 _startPosition;
 
     [Header("lerp")]
     public Transform target;
@@ -18,6 +21,11 @@ public class PlayerController : MonoBehaviour
 
     public GameObject endScreen;
     public GameObject startScreen;
+
+    public void Start()
+    {
+        ResetSpeed();
+    }
 
 
     public void StartToRun()
@@ -36,7 +44,7 @@ public class PlayerController : MonoBehaviour
         _pos.x = transform.position.x;
 
         transform.position = Vector3.Lerp(transform.position, _pos, LerpSpeed * Time.deltaTime);
-        transform.Translate(transform.forward * speed * Time.deltaTime);
+        transform.Translate(transform.forward * _currentSpeed * Time.deltaTime);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -49,9 +57,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag == endLineTagCheck) 
+        if (other.transform.tag == endLineTagCheck)
         {
-            EndGame();   
+            EndGame();
         }
     }
 
@@ -59,5 +67,40 @@ public class PlayerController : MonoBehaviour
     {
         _canRun = false;
         endScreen.SetActive(true);
+    }
+
+    #region POWER UPS
+
+    public void SetPowerUpText(string s)
+    {
+        //uiTextPowerUp.text = s;
+    }
+
+    public void PowerUpSpeedUp(float f)
+    {
+        _currentSpeed = f;
+    }
+
+    public void ResetSpeed()
+    {
+        _currentSpeed = speed;
+    }
+
+    #endregion
+
+
+    //Instances
+
+    private static PlayerController _instance;
+    public static PlayerController Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<PlayerController>();
+            }
+            return _instance;
+        }
     }
 }
