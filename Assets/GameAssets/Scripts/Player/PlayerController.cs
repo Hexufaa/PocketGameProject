@@ -22,6 +22,10 @@ public class PlayerController : MonoBehaviour
     public GameObject endScreen;
     public GameObject startScreen;
 
+    [Header("Power Ups")]
+    public bool invencible = false;
+
+
     public void Start()
     {
         ResetSpeed();
@@ -51,7 +55,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.transform.tag == enemyTagCheck)
         {
-            EndGame();
+            if(!invencible) EndGame();
         }
     }
 
@@ -59,7 +63,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.transform.tag == endLineTagCheck)
         {
-            EndGame();
+            if(!invencible) EndGame();
         }
     }
 
@@ -84,6 +88,11 @@ public class PlayerController : MonoBehaviour
     public void ResetSpeed()
     {
         _currentSpeed = speed;
+    }
+
+    public void SetInvencible(bool b = true)
+    {
+        invencible = b;
     }
 
     #endregion

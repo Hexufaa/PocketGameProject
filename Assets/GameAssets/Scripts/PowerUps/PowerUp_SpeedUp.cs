@@ -20,5 +20,4 @@ public class PowerUp_SpeedUp : PowerUpBase
         PlayerController.Instance.ResetSpeed();
         PlayerController.Instance.SetPowerUpText("");
     }
-    //codigo completo não funcional
 }
