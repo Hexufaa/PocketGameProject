@@ -29,6 +29,9 @@ public class PlayerController : MonoBehaviour
     [Header("Power Ups")]
     public bool invencible = false;
 
+    [Header("Coin Setup")]
+    public GameObject coinCollector;
+
 
     public void Start()
     {
@@ -111,6 +114,13 @@ public class PlayerController : MonoBehaviour
         var p = transform.position;
         p.y = _startPosition.y;
         transform.position = p;
+    }
+
+
+
+    public void ChangeCoinCollectorSize(float amount)
+    {
+        coinCollector.transform.localScale = Vector3.one * amount;
     }
 
     #endregion
