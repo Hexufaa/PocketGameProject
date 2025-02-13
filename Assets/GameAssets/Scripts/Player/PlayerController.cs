@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -8,11 +9,14 @@ public class PlayerController : MonoBehaviour
     private Vector3 _pos;
     private bool _canRun;
     private float _currentSpeed;
-    //private Vector3 _startPosition;
+    private Vector3 _startPosition;
 
     [Header("lerp")]
     public Transform target;
     public float LerpSpeed = 1f;
+
+    [Header("TextMeshPro")]
+    public TextMeshPro uiTextPowerUp;
 
     [Header("move")]
     public float speed = 1f;
@@ -28,6 +32,7 @@ public class PlayerController : MonoBehaviour
 
     public void Start()
     {
+        _startPosition = transform.position;
         ResetSpeed();
     }
 
@@ -38,7 +43,6 @@ public class PlayerController : MonoBehaviour
         startScreen.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (! _canRun) return;
@@ -77,7 +81,7 @@ public class PlayerController : MonoBehaviour
 
     public void SetPowerUpText(string s)
     {
-        //uiTextPowerUp.text = s;
+        uiTextPowerUp.text = s;
     }
 
     public void PowerUpSpeedUp(float f)
@@ -93,6 +97,20 @@ public class PlayerController : MonoBehaviour
     public void SetInvencible(bool b = true)
     {
         invencible = b;
+    }
+
+    public void ChangeHeight(float amount, float duration)
+    {
+        var p = transform.position;
+        p.y = _startPosition.y + amount;
+        transform.position = p;
+    }
+
+    public void ResetHeight()
+    {
+        var p = transform.position;
+        p.y = _startPosition.y;
+        transform.position = p;
     }
 
     #endregion
