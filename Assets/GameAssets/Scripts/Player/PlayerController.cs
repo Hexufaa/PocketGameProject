@@ -32,6 +32,9 @@ public class PlayerController : MonoBehaviour
     [Header("Coin Setup")]
     public GameObject coinCollector;
 
+    [Header("Animation")]
+    public animatorManager animatorManager;
+
 
     public void Start()
     {
@@ -40,10 +43,22 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void StartToRun()
+
+
+    private void OnCollisionEnter(Collision collision)
     {
-        _canRun = true;
-        startScreen.SetActive(false);
+        if (collision.transform.tag == enemyTagCheck)
+        {
+            if(!invencible) EndGame(animatorManager.AnimationType.DEAD);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.tag == endLineTagCheck)
+        {
+            if(!invencible) EndGame();
+        }
     }
 
     void Update()
@@ -57,27 +72,17 @@ public class PlayerController : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, _pos, LerpSpeed * Time.deltaTime);
         transform.Translate(transform.forward * _currentSpeed * Time.deltaTime);
     }
-
-    private void OnCollisionEnter(Collision collision)
+    public void StartToRun()
     {
-        if (collision.transform.tag == enemyTagCheck)
-        {
-            if(!invencible) EndGame();
-        }
+        _canRun = true;
+        startScreen.SetActive(false);
+        animatorManager.Play(animatorManager.AnimationType.RUN);
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.transform.tag == endLineTagCheck)
-        {
-            if(!invencible) EndGame();
-        }
-    }
-
-    private void EndGame()
+    private void EndGame(animatorManager.AnimationType animationType = animatorManager.AnimationType.IDLE)
     {
         _canRun = false;
         endScreen.SetActive(true);
+        animatorManager.Play(animationType);
     }
 
     #region POWER UPS
