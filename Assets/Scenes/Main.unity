@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 86013c4569eea1e43bef7e1d2fe3ed8c, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -650,17 +650,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   container: {fileID: 1476204317}
-  levels:
-  - {fileID: 1003789946119651718, guid: fcbc2f6ba1be9344fb059dfbc4101134, type: 3}
-  - {fileID: 1003789946119651718, guid: 198b00ee8ab73a3408d7422d7c76854f, type: 3}
-  levelPieceBasedSetups: []
-  levelsPieces:
-  - {fileID: 642829446064824525, guid: e81d82faeb65d7443a084064163dbf1d, type: 3}
-  - {fileID: 642829446064824525, guid: 0f2b143007a27f14fb4d7989e86eaf0f, type: 3}
-  pieceNumber: 10
-  timeBetweenPieces: 0.1
-  _index: 1
-  _spawnedPieces: []
+  Levels:
+  - {fileID: 7218501017378625031, guid: e81d82faeb65d7443a084064163dbf1d, type: 3}
+  - {fileID: 7218501017378625031, guid: 0f2b143007a27f14fb4d7989e86eaf0f, type: 3}
+  - {fileID: 7218501017378625031, guid: db70c1e131c06d747a3563c3afc2e3ec, type: 3}
+  levelPieces: []
+  levelPieceBasedSetups:
+  - {fileID: 11400000, guid: 260b7aa427b92c34d8df8f3c66189106, type: 2}
+  - {fileID: 11400000, guid: 7fdbce120b1de2d48ac7cef780677439, type: 2}
+  - {fileID: 11400000, guid: 8831aea2d051e53468db1f8b65f6050c, type: 2}
+  artType: 2
+  _index: 0
 --- !u!4 &519811478
 Transform:
   m_ObjectHideFlags: 0
@@ -670,7 +670,7 @@ Transform:
   m_GameObject: {fileID: 519811476}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.8271804, y: -2.491837, z: 2.333614}
+  m_LocalPosition: {x: 0, y: 0, z: 6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2157,6 +2157,66 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1026523663}
   m_SourcePrefab: {fileID: 100100000, guid: 89e20167823a30d459856414377997d1, type: 3}
+--- !u!1 &2087400881
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2087400883}
+  - component: {fileID: 2087400882}
+  m_Layer: 0
+  m_Name: ColorManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2087400882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087400881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42701a1c3da1dab4d9ed2b877a65ac4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materials:
+  - {fileID: 2100000, guid: f39b5a157b1b709418addd0d0872dd85, type: 2}
+  - {fileID: 2100000, guid: 5f0c0c414714a5f49ba6cd364cc35f3f, type: 2}
+  colorSetups:
+  - artType: 0
+    colors:
+    - {r: 0.052918315, g: 1, b: 0, a: 0}
+    - {r: 0.78431374, g: 0.7710604, b: 0, a: 0}
+  - artType: 1
+    colors:
+    - {r: 0, g: 0.07107735, b: 1, a: 0}
+    - {r: 0.02352941, g: 1, b: 1, a: 0}
+  - artType: 2
+    colors:
+    - {r: 1, g: 0.06640468, b: 0, a: 0}
+    - {r: 0.8666667, g: 0.007843138, b: 0.60784316, a: 0}
+--- !u!4 &2087400883
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087400881}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.16099131, y: 7.325081, z: 6.975361}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2092395636
 GameObject:
   m_ObjectHideFlags: 0
@@ -2190,6 +2250,9 @@ MonoBehaviour:
   - artType: 0
     gameObject: {fileID: 7703214660511152504, guid: ad93892ca043b2444887b4d7f7d0675e,
       type: 3}
+  - artType: 2
+    gameObject: {fileID: 3451343534846876570, guid: 60ac55375e6aaeb43a796d62941cd10d,
+      type: 3}
   - artType: 1
     gameObject: {fileID: 2094659337228157646, guid: 2598e21727433384094eb397aef724cd,
       type: 3}
@@ -2215,8 +2278,9 @@ SceneRoots:
   - {fileID: 963194228}
   - {fileID: 705507995}
   - {fileID: 1178407295}
-  - {fileID: 1476204317}
   - {fileID: 1240355044}
+  - {fileID: 1476204317}
   - {fileID: 1445463562}
   - {fileID: 519811478}
   - {fileID: 2092395638}
+  - {fileID: 2087400883}

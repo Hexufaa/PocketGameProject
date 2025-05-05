@@ -2,29 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-public class ArtManager : MonoBehaviour
+public class ArtManager : Singleton<ArtManager>
 {
-    private static ArtManager instance;
-
-    public static ArtManager Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = FindObjectOfType<ArtManager>();
-
-                if (instance == null)
-                {
-                    GameObject artManagerObject = new GameObject("ArtManager");
-                    instance = artManagerObject.AddComponent<ArtManager>();
-                }
-            }
-            return instance;
-        }
-    }
-
-
+    //private static ArtManager instance;
 
     public enum ArtType
     {

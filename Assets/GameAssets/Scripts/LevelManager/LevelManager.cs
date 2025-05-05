@@ -1,47 +1,58 @@
+using System;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditorInternal;
-using UnityEngine;
-using static ArtManager;
+using System.Linq;
+//using static ArtManager;
 public class LevelManager : MonoBehaviour
 {
-
+    // funcionando, falta arrumar o spawn de peças que sempre spawna algumas iguais no começo
     public Transform container;
-    public List<GameObject> levels;
+    public List<GameObject> Levels;
+
+    public List<LevelPieceBase> levelPieces;
+    //public int pieceNumber = 5;
     public List<LevelPieceBasedSetup> levelPieceBasedSetups;
-
-    [Header("Pieces")]
-    public List<LastPieceBase> levelsPieces;
-    public int pieceNumber = 5;
-    public float timeBetweenPieces = .3f;
-
+    public ArtManager.ArtType artType;
 
 
     [SerializeField] private int _index;
     private GameObject _currentLevel;
+    private List<LevelPieceBase> _spawnedPieces = new List<LevelPieceBase>();
 
-    [SerializeField] private List<LastPieceBase> _spawnedPieces = new List<LastPieceBase>();
+    private LevelPieceBasedSetup _currSetup;
 
 
     private void Awake()
     {
-        //SpawnNextlevel();
-        CreateLevelPiece();
+        _currSetup = levelPieceBasedSetups.FirstOrDefault(setup => setup.artType == artType);
 
+        SpawnNextLevel();
+        CreateLevelPIECES();
     }
 
-    private void SpawnNextlevel()
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            SpawnNextLevel();
+            CreateLevelPIECES();
+        }
+    }
+    private void SpawnNextLevel()
     {
         if(_currentLevel != null)
         {
             Destroy(_currentLevel);
-            _index++;
-            if(_index >= levels.Count)
-            {
-                ResetLevelIndex();
-            }
         }
-        _currentLevel = Instantiate(levels[_index], container);
+            _index++;
+        
+        if(_index >= Levels.Count)
+        {
+            ResetLevelIndex();
+        }
+        _currentLevel = Instantiate(Levels[_index], container); 
         _currentLevel.transform.localPosition = Vector3.zero;
     }
 
@@ -50,83 +61,52 @@ public class LevelManager : MonoBehaviour
         _index = 0;
     }
 
-    private void Update()
+    private void CreateLevelPiece(List<LevelPieceBase> list)
     {
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            SpawnNextlevel();
-            CreateLevelPiece();
-        }
-    }
-
-    #region
-
-    private void CleanSpawnedPieces()
-    {
-    _spawnedPieces = new List<LastPieceBase>();
-
-        var _currSetup = levelPieceBasedSetups[_index];
-
-        if (_currSetup != null) 
-        {
-         
-            _index++;
-            if(_index >= levelPieceBasedSetups.Count)
-            {
-                ResetLevelIndex();
-            }
-
-        }
-
-    }
-    private void CreateLevelPieces()
-    {
-        //CreateLevelPiece();
-        //StartCoroutine(CreateLevelPiecesCoroutine());
-    }
-
-    /*IEnumerator CreateLevelPiecesCoroutine()
-    {
-        CleanSpawnedPieces();
-
-        for (int i = 0; i < pieceNumber; i++)
-        {
-            CreateLevelPiece();
-            yield return new WaitForSeconds(timeBetweenPieces);
-        }
-    }*/
-
-
-
-    private void CreateLevelPiece()
-    {
-        var piece = levelsPieces[Random.Range(0, levelsPieces.Count)];
+       
+        var piece = list[UnityEngine.Random.Range(0, list.Count)];
         var spawnedPiece = Instantiate(piece, container);
-        //ArtManager artManager = ArtManager.Instance;
 
         if (_spawnedPieces.Count > 0)
         {
             var lastPiece = _spawnedPieces[_spawnedPieces.Count - 1];
-
             spawnedPiece.transform.position = lastPiece.endPiece.position;
         }
-        else
-        {
-            spawnedPiece.transform.localPosition = Vector3.zero;
-        }
 
-                var _currSetup = levelPieceBasedSetups[_index]; // com erro, fala que está fora de range
-        foreach(var p in spawnedPiece.GetComponentsInChildren<ArtPiece>())
+        foreach (var p in spawnedPiece.GetComponentsInChildren<ArtPiece>())
         {
-            //ArtManager artManager = new ArtManager();
-            p.ChangePiece(ArtManager.Instance.GetSetupByType(_currSetup.artType).gameObject);
+            var artSetup = ArtManager.Instance.GetSetupByType(_currSetup.artType);
+            if (artSetup != null)
+                p.ChangePiece(artSetup.gameObject);
         }
-
-            _spawnedPieces.Add(spawnedPiece);
+                ColorManager.Instance.ChangeColorByType(_currSetup.artType);
+        _spawnedPieces.Add(spawnedPiece);
     }
+    private void CreateLevelPIECES()
+    {
+        CleanSpawnedPieces();
+        _index++;
+        if (_index >= levelPieceBasedSetups.Count) { ResetLevelIndex(); }
+            _currSetup = levelPieceBasedSetups[_index];
 
-    #endregion
+        if (_currSetup != null)
+        {
+            for (int i = 0; i < _currSetup.pieceNumber; i++)
+            {
+                CreateLevelPiece(_currSetup.levelPiece);
+            }
+        }//
 
 
+    }
+    
+    private void CleanSpawnedPieces()
+    {
+        for(int i = _spawnedPieces.Count-1; i >= 0; i--)
+        {
+            Destroy(_spawnedPieces[i].gameObject);
+        }
+        _spawnedPieces.Clear();
 
+    }
 }
