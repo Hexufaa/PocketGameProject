@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class ItemCollectableBase : MonoBehaviour
 {
@@ -8,7 +9,6 @@ public class ItemCollectableBase : MonoBehaviour
     public string compareTag = "Player";
     public float timeToHide = 2f;
     public GameObject graphicItem;
-
 
     private void OnTriggerEnter(Collider collision) 
     {

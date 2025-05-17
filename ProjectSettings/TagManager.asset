@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - EndLine
   - CoinCollector
+  - powerUp
   layers:
   - Default
   - TransparentFX

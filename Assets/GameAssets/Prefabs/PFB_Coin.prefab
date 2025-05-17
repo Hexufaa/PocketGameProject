@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 6483608344443002089}
   - component: {fileID: 3647062376492366949}
   - component: {fileID: 1931983639616008326}
+  - component: {fileID: 1486531879189270403}
   m_Layer: 0
   m_Name: PFB_Coin
   m_TagString: Untagged
@@ -111,7 +112,7 @@ Transform:
   m_GameObject: {fileID: 1629276619153060532}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.27, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -181,3 +182,22 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.6
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1486531879189270403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629276619153060532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6b53acfdad889f47a313a9daf2a8aa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  compareTag: Player
+  timeToHide: 0
+  graphicItem: {fileID: 205809044098354646}
+  collider: {fileID: 1931983639616008326}
+  collect: 0
+  minDistance: 1
+  lerp: 5

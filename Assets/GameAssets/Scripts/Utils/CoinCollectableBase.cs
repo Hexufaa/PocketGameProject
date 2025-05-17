@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class CoinCollectableBase : ItemCollectableBase
 {
@@ -11,7 +12,7 @@ public class CoinCollectableBase : ItemCollectableBase
 
     private void Start()
     {
-        //CoinsAnimationManager.Instance.RegisterCoin(this);
+        CoinAnimatorManager.Instance.RegisterCoin(this);
     }
 
     protected override void Collect()
@@ -19,10 +20,12 @@ public class CoinCollectableBase : ItemCollectableBase
         base.Collect();
         collider.enabled = false;
         collect = true;
+
     }
 
     private void Update()
     {
+
         if (collect)
         {
             transform.position = Vector3.Lerp(transform.position, 

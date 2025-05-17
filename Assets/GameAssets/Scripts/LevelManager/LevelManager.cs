@@ -4,10 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditorInternal;
 using System.Linq;
+using DG.Tweening;
 //using static ArtManager;
-public class LevelManager : MonoBehaviour
+public class LevelManager : Singleton<LevelManager>
 {
-    // funcionando, falta arrumar o spawn de peças que sempre spawna algumas iguais no começo
     public Transform container;
     public List<GameObject> Levels;
 
@@ -23,9 +23,21 @@ public class LevelManager : MonoBehaviour
 
     private LevelPieceBasedSetup _currSetup;
 
+    [Header("Animation")]
+    public float scaleDuration = .2f;
+    public float scaleTimeBetweenPieces = 1f;
+    public Ease ease = Ease.OutBack;
+
+
+    public static LevelManager Instance { get; private set; }
 
     private void Awake()
     {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+
         _currSetup = levelPieceBasedSetups.FirstOrDefault(setup => setup.artType == artType);
 
         SpawnNextLevel();
@@ -61,6 +73,25 @@ public class LevelManager : MonoBehaviour
         _index = 0;
     }
 
+
+    IEnumerator ScalePiecesByTime()
+    {
+        foreach (var p in _spawnedPieces) 
+        {
+            p.transform.localScale = Vector3.zero;
+        }
+        yield return null;
+
+        for (int i = 0; i < _spawnedPieces.Count; i++)
+        {
+            _spawnedPieces[i].transform.DOScale(1, scaleDuration).SetEase(ease);
+            yield return new WaitForSeconds(scaleTimeBetweenPieces);
+
+        }
+
+    }
+
+
     private void CreateLevelPiece(List<LevelPieceBase> list)
     {
        
@@ -86,7 +117,7 @@ public class LevelManager : MonoBehaviour
     {
         CleanSpawnedPieces();
         _index++;
-        if (_index >= levelPieceBasedSetups.Count) { ResetLevelIndex(); }
+        if (_index >= levelPieceBasedSetups.Count) { ResetLevelIndex();}
             _currSetup = levelPieceBasedSetups[_index];
 
         if (_currSetup != null)
@@ -95,8 +126,9 @@ public class LevelManager : MonoBehaviour
             {
                 CreateLevelPiece(_currSetup.levelPiece);
             }
-        }//
-
+        }
+        StartCoroutine(ScalePiecesByTime());
+        //CoinAnimatorManager.Instance.StartAnimations();
 
     }
     

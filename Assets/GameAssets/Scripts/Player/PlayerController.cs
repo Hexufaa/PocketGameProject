@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using DG.Tweening;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Singleton<PlayerController>
 {
     private Vector3 _pos;
     private bool _canRun;
@@ -35,6 +36,10 @@ public class PlayerController : MonoBehaviour
     [Header("Animation")]
     public animatorManager animatorManager;
 
+    [SerializeField] private BounceHelper _bounceHelper;
+    public AnimationPlayerStart AnimationPlayerStart;
+
+
 
     public void Start()
     {
@@ -42,7 +47,13 @@ public class PlayerController : MonoBehaviour
         ResetSpeed();
     }
 
-
+    public void Bounce()
+    {
+        if (_bounceHelper != null)
+        {
+            _bounceHelper.Bounce();
+        }   
+    }
 
 
     private void OnCollisionEnter(Collision collision)
