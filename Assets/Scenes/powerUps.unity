@@ -1988,7 +1988,7 @@ MonoBehaviour:
   shrinkDuration: 0.5
   shrinkScale: {x: 0.01, y: 0.01, z: 0.01}
   shrinkEase: 26
-  powerUpScale: 1.9
+  powerUpScale: 2
   PowerUpscaleDuration: 0.5
   PowerUpVector: {x: 1.2, y: 1.2, z: 1.2}
   powerUpEase: 27

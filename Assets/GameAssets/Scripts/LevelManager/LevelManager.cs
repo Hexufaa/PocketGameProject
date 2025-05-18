@@ -40,8 +40,13 @@ public class LevelManager : Singleton<LevelManager>
 
         _currSetup = levelPieceBasedSetups.FirstOrDefault(setup => setup.artType == artType);
 
+    }
+
+    private void Start()
+    {
         SpawnNextLevel();
         CreateLevelPIECES();
+        
     }
 
     private void Update()
@@ -128,7 +133,7 @@ public class LevelManager : Singleton<LevelManager>
             }
         }
         StartCoroutine(ScalePiecesByTime());
-        //CoinAnimatorManager.Instance.StartAnimations();
+        CoinAnimatorManager.Instance.StartAnimations();
 
     }
     

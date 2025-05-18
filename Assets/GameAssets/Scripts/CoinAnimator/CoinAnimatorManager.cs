@@ -28,6 +28,7 @@ public class CoinAnimatorManager : Singleton<CoinAnimatorManager>
         else
             Destroy(gameObject);
 
+        StartAnimations();
         itens = new List<CoinCollectableBase>();
     }
 
@@ -51,15 +52,15 @@ public class CoinAnimatorManager : Singleton<CoinAnimatorManager>
 
     public void StartAnimations()
     {
-        StartCoroutine(ScalePiecesByTime());
+        StartCoroutine(ScaleCoinsByTime());
     }
 
-    IEnumerator ScalePiecesByTime()
+    IEnumerator ScaleCoinsByTime()
     {
-        //foreach (var p in itens){p.transform.localScale = Vector3.zero}
+        foreach (var p in itens){ p.transform.localScale = Vector3.zero;}
 
         Sort();
-        //yield return null;
+        yield return null;
 
         for (int i = 0; i < itens.Count; i++)
         {
